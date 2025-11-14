@@ -1,7 +1,6 @@
 package com.educonnect.event.dto.response;
 
 import lombok.*;
-import org.apache.catalina.LifecycleState;
 
 import java.util.List;
 
