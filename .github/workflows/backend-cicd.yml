@@ -94,7 +94,7 @@ jobs:
           git config user.email "viral@gmail.com"
 
           git diff --quiet && echo "No changes" || {
-            git add values.yaml
+            git add charts/backend/values.yaml
             git commit -m "Update backend image to ${TAG}"
             git push
           }
