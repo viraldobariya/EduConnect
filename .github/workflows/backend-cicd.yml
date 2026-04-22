@@ -33,12 +33,12 @@ jobs:
         run: |
           mvn sonar:sonar \
           -Dsonar.projectKey=backend \
-          -Dsonar.host.url=${{secrets.SONAR_HOST_URL}}
-          -Dsonar.login=${{secrets.SONAR_TOKEN}}
+          -Dsonar.host.url=${{secrets.SONAR_HOST_URL}} \
+          -Dsonar.login=${{secrets.SONAR_TOKEN}} \
           -Dsonar.qualitygate.wait=true
 
       - name: OWASP dependency check
-        run: mvn org.owasp:dependency-check-maven:check
+        run: mvn org.owasp:dependency-check-maven:check -DfailBuildOnCVSS=7
 
       - name: Set image tag
         id: tag-img
@@ -48,7 +48,7 @@ jobs:
         run: docker build -t $DOCKER_IMAGE:${{steps.tag-img.outputs.tag}} .
 
       - name: Trivy scan (fail on HIGH/CRITICAL)
-        uses: aquasecurity/trivy-action@v0.20.0
+        uses: aquasecurity/trivy-action@v0.28.0
         with:
           image-ref: ${{env.DOCKER_IMAGE}}:${{steps.tag-img.outputs.tag}}
           severity: HIGH,CRITICAL
@@ -69,10 +69,8 @@ jobs:
     
     steps:
       - name: Clone repo
-        run: |
-          git clone https://${{secrets.GITOPS_TOKEN}}@github.com/viraldobariya/educonnect-gitops.git
-          cd educonnect-gitops
-      
+        run: git clone https://${{secrets.GITOPS_TOKEN}}@github.com/viraldobariya/educonnect-gitops.git
+
       - name: Install yq
         run: |
           sudo apt-get update
@@ -85,11 +83,13 @@ jobs:
         run: |
           cd educonnect-gitops
           TAG=${{ needs.build-test-scan.outputs.image_tag }}
-          yq e '.image.tag = strenv(TAG)' -i values.yaml
+          yq e '.image.tag = strenv(TAG)' -i charts/backend/values.yaml
       
       - name: Commit and Push Changes
         run: |
           cd educonnect-gitops
+          TAG=${{ needs.build-test-scan.outputs.image_tag }}
+
           git config user.name "viral"
           git config user.email "viral@gmail.com"
 

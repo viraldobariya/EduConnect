@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+// this is question entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
