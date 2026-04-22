@@ -14,6 +14,7 @@ import java.util.Set;
 @EqualsAndHashCode(exclude = {"questions"})
 public class Tag {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
