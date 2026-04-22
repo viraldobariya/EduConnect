@@ -83,7 +83,7 @@ jobs:
         run: |
           cd educonnect-gitops
           TAG=${{ needs.build-test-scan.outputs.image_tag }}
-          yq e '.backend.image.tag = strenv(TAG)' -i charts/backend/values.yaml
+          yq e ".backend.image.tag = \"$TAG\"" -i charts/backend/values.yaml
       
       - name: Commit and Push Changes
         run: |
