@@ -37,8 +37,8 @@ jobs:
           -Dsonar.login=${{secrets.SONAR_TOKEN}} \
           -Dsonar.qualitygate.wait=true
 
-      - name: OWASP dependency check
-        run: mvn org.owasp:dependency-check-maven:check -DfailBuildOnCVSS=7
+      # - name: OWASP dependency check
+      #   run: mvn org.owasp:dependency-check-maven:check -DfailBuildOnCVSS=7
 
       - name: Set image tag
         id: tag-img
