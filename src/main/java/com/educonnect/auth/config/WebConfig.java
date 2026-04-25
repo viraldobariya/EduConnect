@@ -14,7 +14,7 @@ public class WebConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://edu.viraldobariya.me", "https://edu.viraldobariya.me", "http://d29kxofw34aybe.cloudfront.net", "https://d29kxofw34aybe.cloudfront.net")); // allow frontend origin
+        config.setAllowedOrigins(List.of("https://educonnect.viraldobariya.me", "http://educonnect.viraldobariya.me" , "http://d29kxofw34aybe.cloudfront.net", "https://d29kxofw34aybe.cloudfront.net")); // allow frontend origin
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         config.setAllowCredentials(true); // only if you're using cookies
