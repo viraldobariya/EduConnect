@@ -18,7 +18,7 @@ import java.util.UUID;
 @Component
 public class S3FileUploadUtil {
 
-    private final String bucketName = "educonnect-java-bucket";
+    private final String bucketName = "backend-static-content-270322347";
 
     private final S3Client s3Client;
 
